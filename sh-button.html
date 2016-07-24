@@ -143,7 +143,7 @@
         return 'button--' + this._dasherize(name);
       },
 
-      attached() {
+      ready() {
         const button = this.$.button;
         Object.keys(this.properties).forEach((key) => {
           if (this[key]) {

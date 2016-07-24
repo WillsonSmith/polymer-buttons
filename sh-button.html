@@ -1,0 +1,157 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<!--
+`sh-button`
+
+
+@demo demo/index.html
+-->
+
+<dom-module id="sh-button">
+  <template>
+    <style>
+      :host {
+        --blue: #0078bd;
+        --blue-dark: #0069a6;
+
+        --red: #ff5d5d;
+        --red-dark: #d83e3e;
+
+        --green: #96bf48;
+        --green-dark: #7ba232;
+
+        --slate: #31373d;
+
+      }
+      .button {
+        background-color: #fff;
+        border: 1px solid #d3dbe2;
+        border-radius: 3px;
+
+        color: var(--blue);
+
+        padding: 8px 16px;
+
+        font-size: 1em;
+      }
+
+      .button:hover {
+        background-color: #f5f6f7;
+      }
+
+      .button:active {
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1) inset;
+      }
+
+      .button--full-width {
+        width: 100%;
+      }
+
+      /***/
+
+      .button--primary {
+        background-color: var(--blue);
+        border-color: var(--blue);
+        color: #fff;
+      }
+
+      .button--primary:active,
+      .button--primary:hover {
+        background-color: var(--blue-dark);
+        border-color: var(--blue-dark);
+      }
+      .button--primary:active {
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2) inset;
+      }
+
+      /***/
+
+      .button--destroy {
+        background-color: var(--red);
+        border: 1px solid var(--red);
+        color: #fff;
+      }
+
+      .button--destroy:active,
+      .button--destroy:hover {
+        background-color: var(--red-dark);
+        border-color: var(--red-dark);
+      }
+      .button-destroy:active {
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2) inset;
+      }
+
+      /***/
+
+      .button--purchase {
+        background-color: var(--green);
+        border-color: var(--green);
+        color: #fff;
+      }
+
+      .button--purchase:active,
+      .button--purchase:hover {
+        background-color: var(--green-dark);
+        background-color: var(--green-dark);
+      }
+
+      .button--purchase:active {
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2) inset;
+      }
+
+      /***/
+
+      .button--outline {
+        background-color: transparent;
+        color: var(--slate);
+        border: 1px solid var(--slate);
+      }
+
+      .button--outline:active,
+      .button--outline:hover {
+        background: rgba(49, 55, 61, 0.1);
+      }
+      .button--outline:active {
+          box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2) inset;
+      }
+
+    </style>
+    <button id='button' class="button"><content></content></button>
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'sh-button',
+
+      properties: {
+        primary: Boolean,
+        fullWidth: Boolean,
+        outline: Boolean,
+        destroy: Boolean,
+        purchase: Boolean,
+      },
+
+      _dasherize(name) {
+        function replacer(char, index) {
+          return (index !== 0 ? '-' : '') + char.toLowerCase();
+        }
+        return name.replace(/[A-Z/g]/, replacer);
+      },
+
+      _bm(name) {
+        return 'button--' + this._dasherize(name);
+      },
+
+      attached() {
+        const button = this.$.button;
+        Object.keys(this.properties).forEach((key) => {
+          if (this[key]) {
+            button.classList.add(this._bm(key));
+          }
+        });
+      }
+
+    });
+  </script>
+</dom-module>
